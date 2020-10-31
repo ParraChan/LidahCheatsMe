@@ -1,31 +1,26 @@
 <?php declare(strict_types=1); 
 
-function saySomething(string $string): string{
-	return 'first ' . $string;
-}
+function getPermissionsByRole(string $role) :Array{
+	$permissions = [
+		'admin' => [
+				'Puede crear usuarios',
+				'Puede actualizar usuarios',
+				'Puede eliminar usuarios',
+				'Puede visualizar usuarios'
+		],
+		'moderator' => [
+				'Puede actualizar usuarios',
+				'Puede visualizar usuarios'
+		]
+	];
+	return $permissions[$role] ?? [
+			'Puede visualizar usuarios'
+	]; 
+ }
 
-function howOldAreYou(int $year): int{
-	return ((int) date('Y'))-$year;
-}
-echo saySomething("slap\n");
-echo howOldAreYou(1995);
-print "\n";
-
-function discount(float $price, float &$discount): void{
-	$discount = $price * 0.2;
-}
-
-$price = 1000;
-$discount = 0;
-
-discount($price,$discount);
-print sprintf('Precio inicial: %s',$price);
-print "\n";
-print sprintf('Descuento: %s',$discount);
-print "\n";
-print sprintf('Precio final: %s',$price-$discount);
-
-//saySomething("hey ya");
-//print date('Y-M-D');
-//saySomething(200.00);
+ var_dump(getPermissionsByRole('admin'));
+ print "\n";
+  var_dump(getPermissionsByRole('moderator'));
+  print "\n";
+  var_dump(getPermissionsByRole('guest'));
  ?>
