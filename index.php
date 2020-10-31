@@ -2,26 +2,31 @@
 
 class mobileDevice
 {	
+
+	public function __construct(string $brand, string $model, string $color){
+		$this->brand=$brand;
+		$this->model=$model;
+		$this->color=$color;
+
+	}
+
 	public $brand;
 	public $model;
 	public $color;
 
-	public function turnOn()
+	public function turnOn():string 
 	{
-		echo "$this->brand ha sido encendido";
+		return "$this->brand ha sido encendido";
 	}
 
-	public function makeACall(string $phoneNumber)
+	public function makeACall(string $phoneNumber):string
 	{
-		echo "$this->brand esta llamando al numero: $phoneNumber";
+		return "$this->brand esta llamando al numero: $phoneNumber";
 	}
 }
-	$obj = new mobileDevice();
-	$obj->brand ='Iphone';
-	$obj->model ='8+';
-	$obj->color = 'White';
 
-	var_dump($obj);
-	$obj->turnOn();
-	print "\n";
-	$obj->makeACall('2345');
+	$obj1 = new mobileDevice('Iphone','X','White');
+	$obj2 = new mobileDevice('Iphone','XII','White');
+	var_dump($obj1);
+	var_dump($obj2);
+	
