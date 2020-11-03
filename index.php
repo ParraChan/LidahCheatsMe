@@ -1,74 +1,45 @@
 <?php declare(strict_types=1); 
 
-abstract class product
+interface iMailer
 {
+	public function send();
+}
 
-	public $name;
-	public $price;
-
-	protected function calculateDiscount(float $discount):float
+class mailchimp implements iMailer
+{
+	public function send():string
 	{
-		return $this->price*$discount;
+		return 'Sending an mail using mailchimp';
+	}
+}
+class sendGrid implements iMailer
+{
+	public function send():string
+	{
+		return 'Sending an mail using SendGrid';
 	}
 }
 
-class book extends product
+class mailerFactory
 {
-	
-	public $releaseDate;
+	private static $mailer;
 
-	public function getDiscount()
+	public static function set(iMailer $mailer):void
 	{
-		return $this->calculateDiscount(0.2);
+		if(!self::$mailer)
+		{
+			self::$mailer= $mailer;
+		}
 	}
 
-	public function __construct(string $name, float $price, string $releaseDate)
+	public static function send():string
 	{
-		$this->name=$name;
-		$this->price=$price;
-		$this->releaseDate=$releaseDate;
+		return self::$mailer->send();
 	}
-
 }
 
-class guitar extends product
-{
-	
-	public $type;
+//mailerFactory::set(new mailchimp);
+mailerFactory::set(new sendGrid);
 
-	public function getDiscount()
-	{
-		return $this->calculateDiscount(0.05);
-	}
+print mailerFactory::send();
 
-	public function __construct(string $name, float $price, string $type)
-	{
-		$this->name=$name;
-		$this->price=$price;
-		$this->type=$type;
-	}
-
-}
-
-class pc
-{
-
-}
-
-$obj = new Book('Principito',150,'30 de febrero');
-var_dump($obj);
-print "\n";
-var_dump($obj->getDiscount());
-print "\n";
-$obj1 = new guitar('Hamachi',8300,'Electrico');
-var_dump($obj1);
-print "\n";
-var_dump($obj1->getDiscount());
-$obj2 = new pc();
-
-function getObjectName(Product $obj): string
-{
-	return gettype($obj);
-}
-
-var_dump(getObjectName($obj1));
