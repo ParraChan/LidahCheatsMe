@@ -1,40 +1,30 @@
 <?php declare(strict_types=1); 
 
-class Product
+class priceHelper
 {
-
-	private $name;
-	private $price;
-
-	public function getName():string{
-		return $this->name;
+	const DISCOUNT = 0.2;
+	const IVA = 0.18;
+	
+	public static function getDiscount2(float $price):float{
+		return $price * self::DISCOUNT;
+	}
+	public static function getIva2(float $price):float{
+		return $price * self::IVA;
 	}
 
-	public function setPrice(float $price):void{
-		$this->price=$price;
-	}
-	public function getPrice():float{
-		return $this->price;
-	}
-	public function getDiscount():float{
-		return $this->calculateDiscount();
+	public static function getDiscount(float $price):float{
+		return $price * 0.2;
 	}
 
-	private function calculateDiscount():float{
-	$discount=0.2;
-	return (1-$discount)*$this->price;	
-	}
-
-	public function __construct(string $name, float $price)
-	{
-		$this->name=$name;
-		$this->price=$price;
+	public static function getIva(float $price):float{
+		return $price * 0.18;
 	}
 }
-	
-$obj = new Product('Guitarra electrica',1500);
-//$obj->name = 'Amplificador';
-var_dump($obj->getName());
-$obj->setPrice(1900);
-var_dump($obj->getPrice());
-var_dump($obj->getDiscount());
+
+echo priceHelper::getDiscount(200);
+print "\n";
+echo priceHelper::getIva(200);
+print "\n";
+echo priceHelper::getDiscount2(200);
+print "\n";
+echo priceHelper::getIva2(200);
