@@ -1,6 +1,6 @@
 <?php declare(strict_types=1); 
 
-class product
+abstract class product
 {
 
 	public $name;
@@ -50,6 +50,11 @@ class guitar extends product
 
 }
 
+class pc
+{
+
+}
+
 $obj = new Book('Principito',150,'30 de febrero');
 var_dump($obj);
 print "\n";
@@ -59,3 +64,11 @@ $obj1 = new guitar('Hamachi',8300,'Electrico');
 var_dump($obj1);
 print "\n";
 var_dump($obj1->getDiscount());
+$obj2 = new pc();
+
+function getObjectName(Product $obj): string
+{
+	return gettype($obj);
+}
+
+var_dump(getObjectName($obj1));
