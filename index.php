@@ -1,30 +1,61 @@
 <?php declare(strict_types=1); 
 
-class priceHelper
+class product
 {
-	const DISCOUNT = 0.2;
-	const IVA = 0.18;
-	
-	public static function getDiscount2(float $price):float{
-		return $price * self::DISCOUNT;
-	}
-	public static function getIva2(float $price):float{
-		return $price * self::IVA;
-	}
 
-	public static function getDiscount(float $price):float{
-		return $price * 0.2;
-	}
+	public $name;
+	public $price;
 
-	public static function getIva(float $price):float{
-		return $price * 0.18;
+	protected function calculateDiscount(float $discount):float
+	{
+		return $this->price*$discount;
 	}
 }
 
-echo priceHelper::getDiscount(200);
+class book extends product
+{
+	
+	public $releaseDate;
+
+	public function getDiscount()
+	{
+		return $this->calculateDiscount(0.2);
+	}
+
+	public function __construct(string $name, float $price, string $releaseDate)
+	{
+		$this->name=$name;
+		$this->price=$price;
+		$this->releaseDate=$releaseDate;
+	}
+
+}
+
+class guitar extends product
+{
+	
+	public $type;
+
+	public function getDiscount()
+	{
+		return $this->calculateDiscount(0.05);
+	}
+
+	public function __construct(string $name, float $price, string $type)
+	{
+		$this->name=$name;
+		$this->price=$price;
+		$this->type=$type;
+	}
+
+}
+
+$obj = new Book('Principito',150,'30 de febrero');
+var_dump($obj);
 print "\n";
-echo priceHelper::getIva(200);
+var_dump($obj->getDiscount());
 print "\n";
-echo priceHelper::getDiscount2(200);
+$obj1 = new guitar('Hamachi',8300,'Electrico');
+var_dump($obj1);
 print "\n";
-echo priceHelper::getIva2(200);
+var_dump($obj1->getDiscount());
